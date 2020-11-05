@@ -64,7 +64,6 @@ void AMoonShotCharacter::Tick(float DeltaSeconds)
     Super::Tick(DeltaSeconds);
 
 	MoveCursorPointer();
-	GetMovementDirection();
 }
 
 void AMoonShotCharacter::MoveCursorPointer() {
@@ -94,15 +93,4 @@ void AMoonShotCharacter::MoveCursorPointer() {
 			CursorToWorld->SetWorldRotation(CursorR);
 		}
 	}
-}
-
-FVector AMoonShotCharacter::GetMovementDirection() {
-	FVector Velocity = GetCharacterMovement()->Velocity;
-	float Direction = Velocity.Y;
-	float Speed = Velocity.X;
-	// TODO: Hahmota jotenkin, mihin suuntaan hahmo katsoo (hiiri), ja sen mukaan handlaa näitä arvoja
-	UE_LOG(LogTemp, Warning, TEXT("Direction: %f"), Direction);
-	UE_LOG(LogTemp, Warning, TEXT("Speed: %f"), Speed);
-
-	return FVector(Direction, Speed, 0);
 }
