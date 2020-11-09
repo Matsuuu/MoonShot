@@ -57,6 +57,9 @@ AMoonShotCharacter::AMoonShotCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+	// Set tags
+	Tags.Add("Player");
 }
 
 void AMoonShotCharacter::Tick(float DeltaSeconds)
