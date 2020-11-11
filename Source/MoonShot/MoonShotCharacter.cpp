@@ -12,6 +12,8 @@
 #include "Materials/Material.h"
 #include "Engine/World.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "EventTriggerActor.h"
+#include "MoonShotUtility.h"
 
 AMoonShotCharacter::AMoonShotCharacter()
 {
@@ -94,6 +96,25 @@ void AMoonShotCharacter::MoveCursorPointer() {
 			FRotator CursorR = CursorFV.Rotation();
 			CursorToWorld->SetWorldLocation(TraceHitResult.Location);
 			CursorToWorld->SetWorldRotation(CursorR);
+		}
+	}
+}
+
+void AMoonShotCharacter::CanInteractEnter(AEventTriggerActor* TriggerActor) {
+	CanInteract = true;
+	InteractableActor = TriggerActor;
+	printFString("Trigger actor name: %s", *TriggerActor->GetName());
+}
+
+void AMoonShotCharacter::CanInteractExit() {
+	CanInteract = false;
+	InteractableActor = nullptr;
+}
+
+void AMoonShotCharacter::Interact() {
+	if (CanInteract) {
+		if (InteractableActor != nullptr) {
+			InteractableActor->Interact();
 		}
 	}
 }

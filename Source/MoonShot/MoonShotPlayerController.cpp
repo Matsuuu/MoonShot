@@ -7,6 +7,7 @@
 #include "MoonShotCharacter.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
+#include "MoonShotUtility.h"
 #include "Kismet/KismetMathLibrary.h"
 
 AMoonShotPlayerController::AMoonShotPlayerController()
@@ -19,7 +20,10 @@ void AMoonShotPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 	LookAtCursor();
+}
 
+void AMoonShotPlayerController::BeginPlayingState() {
+	CharacterRef = Cast<AMoonShotCharacter>(GetCharacter());
 }
 
 void AMoonShotPlayerController::SetupInputComponent()
@@ -29,6 +33,7 @@ void AMoonShotPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("Jump", IE_Pressed, this, &AMoonShotPlayerController::OnSetJumpPressed);
 	InputComponent->BindAction("Jump", IE_Released, this, &AMoonShotPlayerController::OnSetJumpReleased);
+	InputComponent->BindAction("Interact", IE_Released, this, &AMoonShotPlayerController::OnInteract);
 
 	InputComponent->BindAxis("MoveForward", this, &AMoonShotPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &AMoonShotPlayerController::MoveRight);
@@ -59,4 +64,8 @@ void AMoonShotPlayerController::LookAtCursor()
 	FHitResult TraceResult(ForceInit);
 	GetHitResultUnderCursor(ECollisionChannel::ECC_WorldDynamic, true, TraceResult);
 	GetCharacter()->SetActorRotation(FRotator(0, UKismetMathLibrary::FindLookAtRotation(GetCharacter()->GetActorLocation(), TraceResult.Location).Yaw, 0), ETeleportType::None);
+}
+
+void AMoonShotPlayerController::OnInteract() {
+	CharacterRef->Interact();
 }

@@ -14,6 +14,9 @@ class AMoonShotCharacter : public ACharacter
 public:
 	AMoonShotCharacter();
 
+	class AEventTriggerActor* InteractableActor;
+	bool CanInteract = false;
+
 	// Called every frame.
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -24,7 +27,9 @@ public:
 	/** Returns CursorToWorld subobject **/
 	FORCEINLINE class UDecalComponent* GetCursorToWorld() { return CursorToWorld; }
 
-
+	void CanInteractEnter(class AEventTriggerActor* TriggerActor);
+	void CanInteractExit();
+	void Interact();
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

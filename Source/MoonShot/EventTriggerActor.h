@@ -19,17 +19,25 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere)
+	class UPaperSpriteComponent* ButtonSprite;
 
+	bool OverlapperIsPlayer(class AActor* Actor);
+
+	class AMoonShotCharacter* GetPlayerCharacterPointer(class AActor* OtherActor);
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	bool CanInteract = false;
+
 	UFUNCTION()
 		void OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor);
-
 
 	UFUNCTION()
 		void OnOverlapEnd(class AActor* OverlappedActor, class AActor* OtherActor);
 
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "HandleInteraction"))
+		void Interact();
 };
