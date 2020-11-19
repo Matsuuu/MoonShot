@@ -9,6 +9,8 @@
 #include "DrawDebugHelpers.h"
 #include "MoonShotUtility.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Blueprint/UserWidget.h"
+#include "DialogWidget.h"
 
 AMoonShotPlayerController::AMoonShotPlayerController()
 {
@@ -68,4 +70,9 @@ void AMoonShotPlayerController::LookAtCursor()
 
 void AMoonShotPlayerController::OnInteract() {
 	CharacterRef->Interact();
+}
+
+void AMoonShotPlayerController::DialogOpened(UDialogWidget* OpenDialogWidget) {
+	CurrentOpenDialogWidget = OpenDialogWidget;
+	print("Open dialog widget set");
 }

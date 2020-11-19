@@ -62,6 +62,7 @@ AMoonShotCharacter::AMoonShotCharacter()
 
 	// Set tags
 	Tags.Add("Player");
+
 }
 
 void AMoonShotCharacter::Tick(float DeltaSeconds)

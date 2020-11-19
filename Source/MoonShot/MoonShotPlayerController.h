@@ -14,6 +14,8 @@ class AMoonShotPlayerController : public APlayerController
 public:
 	AMoonShotPlayerController();
 
+	void DialogOpened(class UDialogWidget* OpenDialogWidget);
+
 protected:
 	class AMoonShotCharacter* CharacterRef;
 
@@ -32,6 +34,9 @@ protected:
 		void MoveRight(float Value);
 
 	void LookAtCursor();
+
+private:
+	class UDialogWidget* CurrentOpenDialogWidget;
 };
 
 
